@@ -1,140 +1,72 @@
-import React, { Component } from "react";
-import { Routes, Route, Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
+import React from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { AuthProvider} from './auth/AuthContext'
+import { NavigationBar } from './components/Navbar';
+import Home from './pages/home.component';
+import Login from './auth/Login'
+import Signup from './auth/Signup'
 
-import AuthService from "./services/auth.service";
-import EventBus from "./common/EventBus";
-
-import Login from "./components/login.component";
-import Register from "./components/register.component";
-import Home from "./components/home.component";
-import Profile from "./components/profile.component";
-import BoardUser from "./components/board-user.component";
-import BoardAdmin from "./components/board-admin.component";
-
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.logOut = this.logOut.bind(this);
-
-    this.state = {
-      showAdminBoard: false,
-      currentUser: undefined,
-    };
-  }
-
-  componentDidMount() {
-    const user = AuthService.getCurrentUser();
-
-    if (user) {
-      if(user.role=="Manager"){
-      this.setState({
-        currentUser: user,
-        showAdminBoard: user.role="Manager"//user.roles.includes("Manager")
-      });
-    }
-    else{
-      this.setState({
-        currentUser: user,
-        showAdminBoard: false});
-    }
-  }
-  EventBus.on("logout", () => {
-    this.logOut();
-  });
+function App() {
+  return (
+    <AuthProvider>
+      <Router>
+        <NavigationBar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
+  );
 }
 
-componentWillUnmount() {
-  EventBus.remove("logout");
-}
-
-  logOut() {
-    AuthService.logout();
-    this.setState({
-      showAdminBoard: false,
-      currentUser: undefined,
-    });
-  }
-
-  render() {
-    const { currentUser, showAdminBoard } = this.state;
-
-    return (
-      <div>
-        <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <Link to={"/"} className="navbar-brand">
-            Laurita
-          </Link>
-          <div className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link to={"/home"} className="nav-link">
-                Home
-              </Link>
-            </li>
+export default App
 
 
-            {showAdminBoard && (
-              <li className="nav-item">
-                <Link to={"/admin"} className="nav-link">
-                  Admin Board
-                </Link>
-              </li>
-            )}
+/* import { useState, useEffect, createContext } from 'react';
+import { Route, Routes, Navigate, useLocation } from "react-router-dom";
+import * as React from 'react';
+import AuthService from './services/auth.service';
+import { AuthProvider } from './services/auth-context';
+import Home from './components/home.component';
+import Login from './components/login.component';
+import Register from './components/register.component';
+import Profile from './components/profile.component';
+import BoardUser from './components/board-user.component';
+import BoardAdmin from './components/board-admin.component';
+import { NavigationBar } from './newComponents/navBar';
+import { useAuthContext } from './services/auth-context';
+import { Logout } from './newComponents/Logout';
+ */
 
-            {currentUser && (
-              <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  User
-                </Link>
-              </li>
-            )}
-          </div>
 
-          {currentUser ? (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to={"/profile"} className="nav-link">
-                  {currentUser.name}
-                </Link>
-              </li>
-              <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={this.logOut}>
-                  LogOut
-                </a>
-              </li>
-            </div>
-          ) : (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to={"/login"} className="nav-link">
-                  Login
-                </Link>
-              </li>
+/* export default function App() {
+   const {user}=useAuthContext();
+   const location = useLocation();
+   //const pathName = location.state?.from?.pathname || '/'
+return (
+  <div>
+    <NavigationBar />
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path='/login' element={<Login />}/>
+      <Route path='/signup' element={<Register />}/>
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/user" element={<BoardUser />} />
+      <Route path="/admin" element={<BoardAdmin />} />
+      <Route path="/logout" element={<Logout/>} />
+    </Routes>
 
-              <li className="nav-item">
-                <Link to={"/register"} className="nav-link">
-                  Sign Up
-                </Link>
-              </li>
-            </div>
-          )}
-        </nav>
+  </div>
+)}
+   */
 
-        <div className="container mt-3">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/user" element={<BoardUser />} />
-            <Route path="/admin" element={<BoardAdmin />} />
-          </Routes>
-        </div>
-      </div>
-    );
-  }
-}
 
-export default App;
+
+
+
+
+
+

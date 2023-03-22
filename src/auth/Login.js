@@ -40,8 +40,8 @@ export default function Login() {
       .then((response) => {
         if (response.data.accessToken) {
           Auth.userLogin(response.data);
-          navigate("/home");
-          window.location.reload();
+          navigate("/");
+          //window.location.reload();
           setIsLoggedIn(true);
           setEmail("");
           setPassword("");
@@ -75,6 +75,10 @@ export default function Login() {
           justifyContent: "center",
           alignItems: "center",
           minHeight: "100vh",
+          backgroundImage:
+            "url('https://thumbs.dreamstime.com/b/clapperboard-pop-corn-orange-color-background-cinema-film-concept-fresh-salty-movie-clapper-board-banner-145416811.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       >
         <div
@@ -82,7 +86,7 @@ export default function Login() {
             width: 400,
             height: 400,
             borderRadius: "30%",
-            backgroundColor: "#fff",
+            backgroundColor: "rgba(255, 255, 255, 0.9)",
             boxShadow: "0 0 80px #FF4500",
             display: "flex",
             justifyContent: "center",
@@ -104,6 +108,7 @@ export default function Login() {
                     value={email}
                     onChange={handleInputChange}
                   />
+                  <Grid.Row style={{ paddingBottom: "0.5em" }}></Grid.Row>
                   <Form.Input
                     fluid
                     name="password"
@@ -114,6 +119,7 @@ export default function Login() {
                     value={password}
                     onChange={handleInputChange}
                   />
+                  <Grid.Row style={{ paddingBottom: "0.5em" }}></Grid.Row>
                   <Button
                     color='orange'
                     fluid
@@ -126,10 +132,12 @@ export default function Login() {
               </Form>
               <Message>
                 {`Don't have already an account? `}
-                <NavLink to="/signup" style={{ color: 'orange' }}>Sign Up</NavLink>
+                <NavLink to="/signup" style={{ color: "orange" }}>
+                  Sign Up
+                </NavLink>
               </Message>
               {isError && (
-                <Message negative style={{color:"red"}}>
+                <Message negative style={{ color: "red" }}>
                   {errorMessage}
                 </Message>
               )}

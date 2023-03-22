@@ -20,7 +20,7 @@ function NavigationBar() {
   const logout = () => {
     userLogout();
     navigate("/");
-    window.location.reload();
+    //window.location.reload();
   };
   const navigate = useNavigate();
   const userPages = ["My Tickets"];
@@ -40,6 +40,7 @@ function NavigationBar() {
 
   const [pages, setPages] = useState([]);
   const [settings, setSettings] = useState([]);
+  const useAu=userIsAuthenticated();
 
   useEffect(() => {
     if (userIsAuthenticated()) {
@@ -56,7 +57,7 @@ function NavigationBar() {
       setPages([]);
       setSettings(homeSettings);
     }
-  }, []);
+  }, [useAu]);
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
 

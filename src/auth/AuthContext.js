@@ -23,6 +23,7 @@ export function AuthProvider({ children }) {
 
   const userIsAuthenticated = () => {
     const storedUser = localStorage.getItem('user');
+    //console.log(storedUser);
     if (!storedUser) {
       return false;
     }

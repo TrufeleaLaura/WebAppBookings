@@ -46,11 +46,12 @@ const Signup = () => {
     MoviesApi.signup(user).then(
       (response) => {
         Auth.userLogin(response.data);
-        navigate("/home");
-        window.location.reload();
+        //window.location.reload();
         setEmail("");
         setPassword("");
         setIsLoggedIn(true);
+        navigate("/");
+        console.log("Signup successful!");
         setIsError(false);
         setErrorMessage("");
       },(error) => {
@@ -78,6 +79,10 @@ const Signup = () => {
           justifyContent: "center",
           alignItems: "center",
           minHeight: "100vh",
+          backgroundImage:
+            "url('https://thumbs.dreamstime.com/b/clapperboard-pop-corn-orange-color-background-cinema-film-concept-fresh-salty-movie-clapper-board-banner-145416811.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       >
         <div
@@ -85,7 +90,7 @@ const Signup = () => {
             width: 400,
             height: 400,
             borderRadius: "30%",
-            backgroundColor: "#fff",
+            backgroundColor: "rgba(255, 255, 255, 0.9)",
             boxShadow: "0 0 80px #FF4500",
             display: "flex",
             justifyContent: "center",
@@ -107,6 +112,7 @@ const Signup = () => {
                     value={name}
                     onChange={handleInputChange}
                   />
+                  <Grid.Row style={{ paddingBottom: "0.5em" }}></Grid.Row>
                   <Form.Input
                     fluid
                     name="surname"
@@ -116,6 +122,7 @@ const Signup = () => {
                     value={surname}
                     onChange={handleInputChange}
                   />
+                  <Grid.Row style={{ paddingBottom: "0.5em" }}></Grid.Row>
                   <Form.Input
                     fluid
                     name="email"
@@ -125,6 +132,7 @@ const Signup = () => {
                     value={email}
                     onChange={handleInputChange}
                   />
+                  <Grid.Row style={{ paddingBottom: "0.5em" }}></Grid.Row>
 
                   <Form.Input
                     fluid
@@ -136,16 +144,17 @@ const Signup = () => {
                     value={password}
                     onChange={handleInputChange}
                   />
-
-                  <Button color="violet" fluid size="large">
+                  <Grid.Row style={{ paddingBottom: "0.5em" }}></Grid.Row>
+                  <Button color="violet" fluid size="large" >
                     Signup
                   </Button>
                 </Segment>
               </Form>
               <Message>
                 {`Already have an account? `}
-                <NavLink to="/login" style={{ color: 'orange' }}>Log in</NavLink>
-                  
+                <NavLink to="/login" style={{ color: "orange" }}>
+                  Log in
+                </NavLink>
               </Message>
               {isError && <Message negative>{errorMessage}</Message>}
             </Grid.Column>

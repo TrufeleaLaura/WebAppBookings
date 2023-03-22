@@ -22,30 +22,11 @@ function Home() {
         console.log(error);
       });
   }, []);
-/*
-  return (
-    <div>
-      <h1>Movie List</h1>
-      {movies.map(movie => (
-        <div className="movie" key={movie.id}>
-          <img src={movie.imageUrl} alt={movie.name} />
-          <h2>{movie.name}</h2>
-          <p>{movie.category}</p>
-          <p>{movie.type}</p>
-        </div>
-      ))}
-    </div>
-  );
-}*/
+  
 return (
-  //<Box display="flex" justifyContent="center" alignItems="center">
-
-  //<div>
-    //<h1>Movie List</h1>
     <Grid container spacing={2} justifyContent="center">
     {movies.map(movie => (
       <Grid item xs={12} sm={6} md={4} key={movie.id}>
-      {/* <Card key={movie.id} sx={{ maxWidth: 600, margin: '1rem' }}> */}
       <Card sx={{ margin: '1rem' }}>
         <CardMedia
           component="img"

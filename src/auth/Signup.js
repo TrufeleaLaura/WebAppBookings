@@ -5,7 +5,6 @@ import AuthContext from "./AuthContext";
 import { MoviesApi } from "../components/MoviesApi";
 import { parseJwt, handleLogError } from "./Helpers";
 
-
 const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -46,7 +45,6 @@ const Signup = () => {
     MoviesApi.signup(user).then(
       (response) => {
         Auth.userLogin(response.data);
-        //window.location.reload();
         setEmail("");
         setPassword("");
         setIsLoggedIn(true);
@@ -54,7 +52,8 @@ const Signup = () => {
         console.log("Signup successful!");
         setIsError(false);
         setErrorMessage("");
-      },(error) => {
+      },
+      (error) => {
         const resMessage =
           (error.response &&
             error.response.data &&
@@ -145,7 +144,7 @@ const Signup = () => {
                     onChange={handleInputChange}
                   />
                   <Grid.Row style={{ paddingBottom: "0.5em" }}></Grid.Row>
-                  <Button color="violet" fluid size="large" >
+                  <Button color="violet" fluid size="large">
                     Signup
                   </Button>
                 </Segment>

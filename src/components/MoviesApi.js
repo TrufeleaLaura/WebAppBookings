@@ -24,7 +24,7 @@ function signup(user) {
   });
 }
 
-function getMovies() {
+export function getMovies() {
   return instance.get("/movies/all");
 }
 

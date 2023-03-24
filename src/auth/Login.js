@@ -3,8 +3,6 @@ import { NavLink, Navigate, useNavigate } from "react-router-dom";
 import { Button, Form, Grid, Segment, Message } from "semantic-ui-react";
 import AuthContext from "./AuthContext";
 import { MoviesApi } from "../components/MoviesApi";
-import { parseJwt, handleLogError } from "./Helpers";
-import { FormGroup } from "react-bootstrap";
 
 export default function Login() {
   const Auth = useContext(AuthContext);
@@ -36,37 +34,31 @@ export default function Login() {
       return;
     }
 
-    MoviesApi.authenticate(email, password)
-      .then((response) => {
+    MoviesApi.authenticate(email, password).then(
+      (response) => {
         if (response.data.accessToken) {
           Auth.userLogin(response.data);
           navigate("/");
-          //window.location.reload();
           setIsLoggedIn(true);
           setEmail("");
           setPassword("");
           setIsError(false);
         }
-      },(error) => {
+      },
+      (error) => {
         const resMessage =
           (error.response &&
             error.response.data &&
             error.response.data.message) ||
           error.message ||
           error.toString();
-        //console.log(resMessage);
 
         setIsError(true);
         setErrorMessage(resMessage);
       }
     );
-      /*)
-      .catch((error) => {
-        handleLogError(error);
-        setIsError(true);
-      });*/
   };
-  if (isLoggedIn) return <Navigate to="/movies" />;
+  if (isLoggedIn) return <Navigate to="/" />;
   else {
     return (
       <div
@@ -121,7 +113,7 @@ export default function Login() {
                   />
                   <Grid.Row style={{ paddingBottom: "0.5em" }}></Grid.Row>
                   <Button
-                    color='orange'
+                    color="orange"
                     fluid
                     size="large"
                     onClick={handleSubmit}

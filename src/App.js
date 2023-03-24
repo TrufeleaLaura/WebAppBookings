@@ -2,9 +2,16 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider} from './auth/AuthContext'
 import { NavigationBar } from './components/Navbar';
-import Home from './pages/home.component';
+import Home from './pages/home';
 import Login from './auth/Login'
 import Signup from './auth/Signup'
+import MoviesProgram from './pages/MoviesProgram';
+import RegistredUsers from './pages/RegistredUsers';
+import Reservations from './pages/Reservations';
+import AddMovie from './pages/AddMovie';
+import AddMovieProgram from './pages/AddMovieProgram';
+import Booking from './pages/Booking';
+import UserTickets from './pages/UserTickets';
 
 function App() {
   return (
@@ -16,6 +23,13 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="*" element={<Navigate to="/" />} />
+          <Route path="/program" element={<MoviesProgram />} />
+           <Route path="/registredUsers" element={<RegistredUsers />} /> 
+           <Route path="/reservations" element={<Reservations />} />
+           <Route path="/addMovie" element={<AddMovie />} />
+           <Route path="/addMovieProgram" element={<AddMovieProgram />} />
+           <Route path="/booking/:id" element={<Booking/>} />
+           <Route path="/userTickets" element={<UserTickets/>} />
         </Routes>
       </Router>
     </AuthProvider>

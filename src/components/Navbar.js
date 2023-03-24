@@ -24,7 +24,12 @@ function NavigationBar() {
   };
   const navigate = useNavigate();
   const userPages = ["My Tickets"];
-  const adminPages = ["Movies Program", "Registred Users", "Reservations"];
+  const adminPages = [
+    "Movies Program",
+    "Registred Users",
+    "Reservations",
+    "Add Movie",
+  ];
   const homeSettings = ["Login", "Sign Up"];
   const loggedSettings = ["Logout"];
 
@@ -32,20 +37,21 @@ function NavigationBar() {
     Home: "/",
     Login: "/login",
     "Sign Up": "/signup",
-    MyTickets: "/tickets",
-    MoviesProgram: "/movies",
-    "Registred Users": "/users",
+    "My Tickets": "/userTickets",
+    "Movies Program": "/program",
+    "Registred Users": "/registredUsers",
     Reservations: "/reservations",
+    "Add Movie": "/addMovie",
   };
 
   const [pages, setPages] = useState([]);
   const [settings, setSettings] = useState([]);
-  const useAu=userIsAuthenticated();
+  const useAu = userIsAuthenticated();
 
   useEffect(() => {
     if (userIsAuthenticated()) {
       const user = getUser();
-      console.log(user);
+      // console.log(user);
       if (user.role === "Manager") {
         setPages(adminPages);
         setSettings(loggedSettings);
@@ -70,7 +76,7 @@ function NavigationBar() {
   };
 
   return (
-    <AppBar position="static" sx={{background:"#e54304"}}>
+    <AppBar position="static" sx={{ background: "#e54304" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <MovieIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />

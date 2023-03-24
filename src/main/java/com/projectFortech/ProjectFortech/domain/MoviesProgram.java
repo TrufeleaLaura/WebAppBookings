@@ -1,17 +1,28 @@
 package com.projectFortech.ProjectFortech.domain;
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 @Entity
+@Builder
+@AllArgsConstructor
+@TypeDef(name = "jsonb", typeClass = JsonBinaryType.class)
 @Table(name="program_movies_rooms")
-public class ProgramMoviesRooms {
+public class MoviesProgram {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer program_id;
+    @Column(name="program_id")
+    private Integer programId;
 
     @Column(name="start_time")
     private LocalTime startTime;
@@ -29,29 +40,31 @@ public class ProgramMoviesRooms {
     @JoinColumn(name="roomId")
     private Room room;
 
-    @Transient
+    @Type(type = "jsonb")
+    @Column(columnDefinition = "jsonb")
     private Map<Integer,Boolean> seats=new HashMap<>();
 
 
-    public ProgramMoviesRooms() {
+    public MoviesProgram() {
 
     }
 
-    public Integer getProgram_id() {
-        return program_id;
+    public Integer getProgramId() {
+        return programId;
+    }
+
+    public void setProgramId(Integer programId) {
+        this.programId = programId;
     }
 
 
 
-    public ProgramMoviesRooms(LocalTime startTime, LocalTime endTime, LocalDate date, Movie movieId, Room room) {
+    public MoviesProgram(LocalTime startTime, LocalTime endTime, LocalDate date, Movie movieId, Room room) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.date = date;
         this.movie = movieId;
         this.room = room;
-        for(int i=1;i<= room.getPlaces();i++){
-            seats.put(i,false);
-        }
     }
 
     public LocalTime getStartTime() {
@@ -98,10 +111,14 @@ public class ProgramMoviesRooms {
         return seats;
     }
 
+    public void setSeats(Map<Integer, Boolean> seats) {
+        this.seats = seats;
+    }
+
     @Override
     public String toString() {
         return "ProgramMoviesRooms{" +
-                "program_id=" + program_id +
+                "program_id=" + programId +
                 ", startTime=" + startTime +
                 ", endTime=" + endTime +
                 ", date=" + date +

@@ -29,7 +29,7 @@ public class UserServiceImplem implements UserService {
 
     @Override
     public List<User> findAllUsers() {
-        return userRepository.findAll();
+        return userRepository.findAll().stream().filter(user -> !user.getRole().equals("Manager")).toList();
     }
 
 

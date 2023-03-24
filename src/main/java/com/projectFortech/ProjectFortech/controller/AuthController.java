@@ -78,7 +78,6 @@ public class AuthController {
                     .body(new MessageResponse("Error: Email is already taken!"));
         }
 
-        // Create new user's account
         Client user = new Client(signUpRequest.getName(),signUpRequest.getSurname(),
                 signUpRequest.getEmail(),
                 encoder.encode(signUpRequest.getPassword()));

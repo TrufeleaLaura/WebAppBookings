@@ -2,10 +2,15 @@ package com.projectFortech.ProjectFortech.domain;
 
 import com.projectFortech.ProjectFortech.enums.Categories;
 import com.projectFortech.ProjectFortech.enums.Types;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
+@Builder
+@AllArgsConstructor
 @Table(name="movie")
 public class Movie {
     @Id

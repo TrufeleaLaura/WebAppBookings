@@ -1,9 +1,16 @@
 package com.projectFortech.ProjectFortech.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@Builder
+@AllArgsConstructor
 @Table(name="ticket")
 public class Ticket {
 
@@ -23,13 +30,13 @@ public class Ticket {
 
     @ManyToOne
     @JoinColumn(name="programId")
-    private ProgramMoviesRooms program;
+    private MoviesProgram program;
 
     public Ticket() {
 
     }
 
-    public Ticket(int seatNumber, LocalDateTime buyDate, User user, ProgramMoviesRooms program) {
+    public Ticket(int seatNumber, LocalDateTime buyDate, User user, MoviesProgram program) {
         this.seatNumber = seatNumber;
         program.setOccupiedSeat(seatNumber);
         this.buyDate = buyDate;
@@ -49,7 +56,7 @@ public class Ticket {
         return user;
     }
 
-    public ProgramMoviesRooms getProgram() {
+    public MoviesProgram getProgram() {
         return program;
     }
 
@@ -71,7 +78,7 @@ public class Ticket {
         this.user = user;
     }
 
-    public void setProgram(ProgramMoviesRooms program) {
+    public void setProgram(MoviesProgram program) {
         this.program = program;
     }
 }
